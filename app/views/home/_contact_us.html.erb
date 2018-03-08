@@ -1,0 +1,84 @@
+
+<section id="contact-section">
+        <div class="container">
+            <h1 class="text-center">Contact Us</h1>
+            <hr class="sub-head">
+            <h3 class="text-center">
+                We'll be happy to work for you and provide solutions to your problems.
+            </h3>
+            <div class="row">
+                <div class="contact-detail-group col-sm-6">
+                     <ul>
+                        <li class="contact-details" id="contact-phone">
+                            <i class="fa fa-mobile" aria-hidden="true"></i > &nbsp;+91-9439043127</li>
+                        <li class="contact-details" id="contact-mobile">
+                            <i class="fa fa-phone" aria-hidden="true"></i> &nbsp;+91-22-213423423</li>
+
+                        <li class="contact-details" id="contact-email">
+                             <i class="fa fa-envelope" aria-hidden="true"></i> &nbsp;xyz@organization.com
+                        </li>
+                     </ul>
+                     <ul class="social-links">
+                        <li class="facebook"><a target="_blank" href="https://www.facebook.com/people/Gopal-Sharma/1134544510"><i class="fa fa-facebook"></i></a></li>
+                        <li class="twitter"><a target="_blank" href="https://twitter.com/GCSHRGLOBAL"><i class="fa fa-twitter"></i></a></li>
+                        <li class="googleplus"><a target="_blank" href="https://plus.google.com/107868691277537855055"><i class="fa fa-google-plus"></i></a></li>
+                        <li class="skype"><a target="_blank" href="skype:gcshrglobal?call"><i class="fa fa-skype"></i></a></li>
+                        <li class="linkedin"><a target="_blank" href="https://www.linkedin.com/in/gopal-sharma-62b90a14"><i class="fa fa-linkedin"></i></a></li>            
+                    </ul>
+                </div>
+                <div class="col-sm-6">
+                  
+                    
+                <% unless @contact.nil? %>     
+                  <% if @contact.errors.any? %>
+                    <div id="error_explanation">
+                      <div class="alert alert-danger">
+                        The form contains <%= pluralize(@contact.errors.count, "error") %>.
+                      </div>
+                      <ul style="list-style-type: square; color: #ff0033" >
+                      <% @contact.errors.full_messages.each do |msg| %>
+                        <li><%= msg %></li>
+                      
+                      <% end %>
+                      </ul>
+                    </div>
+                  <% end %>
+                  
+                <% end %>
+                  
+                  <% flash.each do |key, value| %>
+                    <div id="message_box"class="alert alert-<%= key %>"><%= value %></div>
+                  <% end %>
+
+                    <%= form_tag '#contact-section' do %>
+                    <%= label_tag(:form_name, "Name", class: "sr-only") %>
+                    <%= text_field_tag(:form_name,nil,placeholder: "Enter Name", class: "form-control") %>
+                    
+                    
+                    <%= label_tag(:form_email, "email", class: "sr-only") %>
+                    <%= text_field_tag(:form_email,nil,placeholder: "Enter Email", class: "form-control") %>
+                    
+
+                    <%= label_tag(:form_contact, "contact", class: "sr-only") %>
+                    <%= text_field_tag(:form_contact,nil,placeholder: "Enter Phone", class: "form-control") %>
+    
+                    
+                    <%= label_tag(:form_message, "message", class: "sr-only") %>
+                    <%= text_area_tag(:form_message,nil,placeholder: "Message", class: "form-control", rows: 12) %>
+                    
+                    <div id="recaptcha-contact">
+                      
+                      <%= recaptcha_tags %>
+
+                    </div>
+
+                    <%= submit_tag("Submit", class: 'btn btn-primary') %>
+
+                  <% end %> 
+                  
+                  
+                </div>
+            </div>
+        </div>
+</section>
+    

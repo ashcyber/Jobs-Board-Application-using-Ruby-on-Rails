@@ -1,0 +1,43 @@
+<div class="container-fluid half-bg">
+    <div id="nav-background"></div>
+</div>
+
+
+    
+    
+<section>
+    <div class="container">
+        <h1 id="job_details_title"><%= @current_job.pos_name %></h1>
+    </div>
+    <div class="container-fluid" id="job_short_details">
+        <div class="container">
+            <h4>
+                <span class="label label-default">Experience: <%= @current_job.experience %></span>
+                <span class="label label-primary">Salary: <%= @current_job.salary_range %></span>
+                <span class="label label-success">Location: <%= @current_job.pos_location %></span>
+                <br><br>
+                <b style="color: #424242"><u>Key Skills:</u> <%= @current_job.key_skill %></b>
+            </h4>
+            
+            <head>
+<div class="fb-share-button" data-href="http://giriconsultancy.in/view_details?job_id=1" data-layout="button" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fgiriconsultancy.in%2Fview_details%3Fjob_id%3D<%= @current_job.id%>&amp;src=sdkpreparse">Share</a></div>            <div style="margin-top: 3px;">
+                <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+                <script type="IN/Share" data-url="http://giriconsultancy.in/view_details?job_id=<%= @current_job.id%>"></script>
+            </div>
+
+            <script src="https://apis.google.com/js/platform.js" async defer></script>
+            <div class="g-plus" data-action="share" data-annotation="none" data-href="http://giriconsultancy.in/view_details?job_id=<%= @current_job.id%>"></div>
+                        
+        </div>
+    </div>
+    <div class="container" id="jd_title">
+        <h3>Job Description</h3>
+    <div id="main_content">
+        <!-- Job content -->
+        <%= @current_job.job_description.html_safe %> 
+    </div>
+
+</section>
+
+    
+

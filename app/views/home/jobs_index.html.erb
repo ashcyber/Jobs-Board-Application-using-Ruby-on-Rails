@@ -1,0 +1,66 @@
+<div class="container-fluid half-bg"><div id="nav-background"></div></div>
+ <section id="job-section">
+        <div class="container text-center">
+            <h1 class="header">All Jobs</h1>
+            <hr class="sub-head">
+            <h3>Here is the list of all current openings.</h3>
+            
+          <% if flash[:notice] %>
+            <div class="alert alert-danger" style="pointer-events: none;" id="message_box" ><%= flash[:notice] %></div>
+          <% end %>
+            
+            
+            <% 
+                if @all_jobs.nil? 
+                    @all_jobs = Job.all.order(updated_at: :desc)                
+                end 
+            %> 
+            
+            <% @jobs = @all_jobs.paginate(page: params[:page], per_page: 10) %> 
+            <%= will_paginate @jobs, renderer: BootstrapPagination::Rails %> 
+            <div class="row">
+                 <div class="col-xs-10 col-sm-6" style="float: none; margin: 0 auto; ">
+                 <%= form_tag({controller: "home", action: "view_job_index"}, method: "post") do %>
+
+                    <div class="input-group" >
+                      <%= text_field_tag(:search_key_word,nil, placeholder: "Enter Keywords, skill or location...", class: "form-control") %>
+                      <span class="input-group-btn" style="z-index: 9">
+                        <%= submit_tag("search", class: 'btn btn-primary') %>                      
+                       </span>
+                    </div>
+                 <% end %>
+
+                 </div>
+            </div> 
+                
+                
+                
+                <% @jobs.each do |j| %>
+                <div class="row text-left">
+                    <div class="job-image hidden-xs col-md-2 col-xs-2 "><span class="glyphicon glyphicon-briefcase"></span></div>
+                    <div class="col-sm-7 job-details">
+                        <h2 class="text-left"><%= j.pos_name %></h2>
+                            <ul class="text-left">
+                                <li class="label label-default">Experience: <%= j.experience %> years</li>
+                                <li class="label label-primary">Salary: <%= j.salary_range %> Lacs</li>
+                                <li class="label label-success">Location: <%= j.pos_location %></li>
+                                <br>
+                                <li style="white-space:normal"><b style="color: #424242"><u>Key Skills:</u> <%= j.key_skill %></b></li>
+                                <br>
+                                <li>Posted On: <%= j.updated_at.strftime("%d-%m-%Y") %></li>
+                                
+                            </ul>
+                        </div>
+                     <div class="text-left col-sm-3 job-view-details">
+                        <%= form_tag({controller: "home", action: "view_details"}, method: "post") do %>
+                            <%= hidden_field_tag 'job_id', j.id  %> 
+                            <%= submit_tag("view details", class: 'btn btn-primary') %>
+                        <% end %> 
+                    </div>
+        
+                </div> 
+                <% end %> 
+        <%= will_paginate @jobs, renderer: BootstrapPagination::Rails %>
+        </div>
+
+    </section>

@@ -1,0 +1,132 @@
+    <div class="container-fluid half-bg">
+        <div id="nav-background"></div>
+    </div>
+
+
+    <div class="container" id="content-upload-resume">
+        <h1 class="text-center">Upload Resume</h1>
+        <hr class="sub-head">
+        <h3 class="text-center">Simply upload your resume and details to register with us.</h3>
+        <% if @candidate.errors.any? %>
+            <div id="error_explanation">
+                <div class="alert alert-danger">
+                    The Form contains <%= pluralize(@candidate.errors.count, "error") %>.
+                </div>
+                <ul style="list-style-type: square; color: #ff0033" >
+                    <% @candidate.errors.full_messages.each do |msg| %>
+                     <li><%= msg %></li>
+                    <% end %>
+                </ul>
+            </div>
+         <% end %>
+        
+
+        
+        
+        <% flash.each do |key, value| %>
+            <div id="message_box"class="alert alert-<%= key %>"><%= value %></div>
+        <% end %>
+        
+            <%= form_tag({controller: "candidate", action: "create"}, method: "post", multipart: true) do %>
+            <div class="form-group">
+                <%= label_tag("Name") %>
+                <div class="input-group col-xs-12">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <%= text_field_tag(:cand_name,nil,placeholder: "Enter Your Name: ", class: "form-control" , value:  @candidate.errors.include?(:name)? '' : @cand_name ) %>
+                </div>
+            </div>
+            
+
+            <div class="form-group">
+                <%= label_tag("email") %>
+                <div class="input-group col-xs-12">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope
+"></i></span>
+                    <%= text_field_tag(:cand_email,nil,placeholder: "Enter Your Email", class: "form-control", value:  @candidate.errors.include?(:email)? '' : @cand_email) %>
+                </div>
+            </div>
+
+
+            
+            <div class="form-group">
+                <%= label_tag("contact") %>
+                <div class="input-group col-xs-12">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-earphone
+"></i></span>
+
+                    <%= text_field_tag(:cand_contact,nil,placeholder: "Enter Your Contact Details", class: "form-control", value: @candidate.errors.include?(:contact)? '' : @cand_contact ) %>
+                </div>
+            </div>
+
+
+
+
+
+
+            <div class="form-group">
+                <%= label_tag("Years of Experience") %>
+                <div class="input-group col-xs-12">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+
+                    <%= text_field_tag(:cand_exp,nil,placeholder: "Enter Your Years of Experience", class: "form-control",type: "number", min: 0, max: 40,value:  @candidate.errors.include?(:experience)? '' : @cand_exp) %>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="form-group">
+                <%= label_tag("Key Skills") %>
+                <div class="input-group col-xs-12">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></span>
+
+                    <%= text_field_tag(:cand_skill,nil,placeholder: "Enter Your Key Skills", class: "form-control", value:  @candidate.errors.include?(:key_skill)? '' : @cand_skill) %>
+                </div>
+
+                
+            </div>
+
+
+
+
+
+            <div class="form-group">
+                <%= label_tag("Education") %>
+                <div class="input-group col-xs-12">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+
+                    <%= text_field_tag(:cand_edu,nil,placeholder: "Enter Your Education", class: "form-control", value:  @candidate.errors.include?(:education)? '' : @cand_edu) %>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <%= label_tag("Current Location") %>
+                <div class="input-group col-xs-12">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker
+"></i></span>
+
+                    <%= text_field_tag(:cand_loc,nil,placeholder: "Enter Your Current Job Location", class: "form-control", value:  @candidate.errors.include?(:current_location)? '' : @cand_loc) %>
+                </div>
+
+            </div>
+
+
+
+            <div class="form-group">
+                <%= label_tag("Upload Resume") %>
+                <div class="input-group col-xs-12">
+                   <%= file_field_tag('cand_resume', value:  @candidate.errors.include?(:attachment)? '' : @cand_resume)%>
+                </div>
+                
+                <div id="recaptcha-candidate">
+                      
+                    <%= recaptcha_tags %>
+
+                </div>
+            </div>    
+            <%= submit_tag("Submit", class: 'btn btn-primary') %>
+            <% end %>         
+    </div>
+

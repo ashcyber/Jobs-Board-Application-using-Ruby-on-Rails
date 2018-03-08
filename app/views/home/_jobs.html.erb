@@ -1,0 +1,64 @@
+<section id="job-section">
+    <div class="container" >
+        <h1 class="header text-center">Recent Jobs</h1>
+        <hr class="sub-head">
+        <br>
+            <%
+            @jobs = Job.order(updated_at: :desc).all.limit(4)
+            %> 
+            <% if @jobs.count > 0 %> 
+            <div class="row">
+                 <div class="col-sm-6 col-xs-10" style="float: none; margin: 0 auto; ">
+                 <%= form_tag({controller: "home", action: "view_job_index"}, method: "get") do %>
+
+                    <div class="input-group">
+                      <%= text_field_tag(:search_key_word,nil, placeholder: "Enter Keywords, skill or location...", class: "form-control") %>
+                      <span class="input-group-btn" style="z-index: 9">
+                        <%= submit_tag("search", class: 'btn btn-primary') %>                      
+                       </span>
+                    </div>
+                 <% end %>
+
+                 </div>
+            </div> 
+
+            
+            
+            
+            <% @jobs.each do |j| %> 
+            <div class="row text-left">
+                <div class="job-image hidden-xs col-md-2 col-xs-2 "><span class="glyphicon glyphicon-briefcase"></span></div>
+                <div class="col-sm-7 job-details text-left">
+                    <h2><%= j.pos_name %></h2>
+                        <ul>
+                            <li class="label label-default">Experience: <%= j.experience %> years</li>
+                            <li class="label label-primary">Salary: <%= j.salary_range %> Lacs</li>
+                            <li class="label label-success">Location: <%= j.pos_location %></li>
+                            <br>
+                            <li style="white-space:normal"><b style="color: #424242"><u>Key Skills:</u> <%= j.key_skill %></b></li>
+                            <br>
+                            <li>Posted On: <%= j.updated_at.strftime("%d-%m-%Y") %></li>
+                        </ul>
+                    </div>
+                 <div class="text-left col-sm-3 job-view-details">
+                    <%= form_tag({controller: "home", action: "view_details"}, method: "post") do %>
+                        <%= hidden_field_tag 'job_id', j.id  %> 
+                        <%= submit_tag("view details", class: 'btn btn-primary') %>
+                    <% end %> 
+                </div>
+    
+            </div> 
+            <% end %> 
+         <% else %> 
+            <div class=" text-center empty_no_jobs_div">
+                <h1>No Current Openings</h1>
+            </div>
+         <% end %> 
+    </div>
+
+    <% if @jobs.count >= 4 %> 
+    <div class="container view-more">
+        <a  href="/jobs" class="btn btn-primary"><b>+</b> View More</a>
+    </div>
+    <% end %> 
+</section>

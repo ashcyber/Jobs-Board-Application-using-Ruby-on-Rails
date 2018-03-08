@@ -1,0 +1,122 @@
+    <div class="container-fluid half-bg">
+        <div id="nav-background"></div>
+    </div>
+
+
+        <div class="container" id="content-hire-talent">
+            
+            <h1 class="text-center">Hire Talent</h1>
+            <hr class="sub-head">
+            <h3 class="text-center">We get you the best hires for your company</h3>
+            <% if @company.errors.any? %>
+                <div id="error_explanation">
+                    <div class="alert alert-danger">
+                         The Form contains <%= pluralize(@company.errors.count, "error") %>.
+                    </div>
+                        <ul style="list-style-type: square; color: #ff0033" >
+                            <% @company.errors.full_messages.each do |msg| %>
+                             <li><%= msg %></li>
+                            <% end %>
+                        </ul>
+                    </div>
+             <% end %>
+        
+        
+        
+        <% flash.each do |key, value| %>
+            <div id="message_box" class="alert alert-<%= key %>"><%= value %></div>
+        <% end %>
+            
+            
+            
+            <%= form_tag({controller: "company", action: "create"}, method: "post", multipart: true) do %>
+                <div class="form-group">
+                    <%= label_tag("Contact Person") %>
+                    <div class="input-group col-xs-12">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <%= text_field_tag(:comp_cont_name,nil,placeholder: "Enter Your Name", class: "form-control", value:  @company.errors.include?(:contact_person)? '' : @comp_cont_name) %>
+                    </div>
+                </div>
+                
+                
+                <div class="form-group">
+                    <%= label_tag("Company Name") %>
+                    <div class="input-group col-xs-12">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <%= text_field_tag(:comp_name,nil,placeholder: "Enter Your Company Name", class: "form-control", value:  @company.errors.include?(:company_name)? '' : @comp_name) %>
+                    </div>
+                </div>
+                
+                
+    
+                <div class="form-group">
+                    <%= label_tag("email") %>
+                    <div class="input-group col-xs-12">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                        <%= text_field_tag(:comp_email,nil,placeholder: "Enter Your Email", class: "form-control", value: @company.errors.include?(:email)? '' : @comp_email) %>
+                    </div>
+                </div>
+    
+    
+    
+    
+    
+                <div class="form-group">
+                    <%= label_tag("contact") %>
+                    <div class="input-group col-xs-12">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+    
+                        <%= text_field_tag(:comp_contact,nil,placeholder: "Enter Your Contact Details", class: "form-control",  value:  @company.errors.include?(:contact_number)? '' : @comp_contact) %>
+                    </div>
+                </div>
+    
+    
+    
+    
+                <div class="form-group">
+                    <%= label_tag("position") %>
+                    <div class="input-group col-xs-12">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase "></i></span>
+    
+                        <%= text_field_tag(:comp_req_pos,nil,placeholder: "Enter Position For Hiring Candidate", class: "form-control", value:  @company.errors.include?(:position)? '' : @comp_req_pos) %>
+                    </div>
+                </div>
+    
+    
+                
+                <div class="form-group">
+                    <%= label_tag("Job Location") %>
+                    <div class="input-group col-xs-12">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
+    
+                        <%= text_field_tag(:comp_req_loc,nil,placeholder: "Enter The Job Location", class: "form-control",  value:  @company.errors.include?(:job_location)? '' : @comp_req_loc) %>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <%= label_tag("Key Skills") %>
+                    <div class="input-group col-xs-12">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></span>
+    
+                        <%= text_field_tag(:comp_req_skill,nil,placeholder: "Enter Key Skills Required For The Job", class: "form-control",  value:  @company.errors.include?(:key_skill)? '' : @comp_req_skill) %>
+                    </div>
+                </div>
+                
+    
+                <div class="form-group">
+                <%= label_tag("Upload Job Description") %>
+                    <div class="input-group col-xs-12">
+                       <%= file_field_tag('company_job_description') %>
+                    </div>
+                    
+                <div id="recaptcha-company">
+                      
+                    <%= recaptcha_tags %>
+
+                </div>
+                    
+                </div>        
+            <%= submit_tag("Submit", class: 'btn btn-primary') %>
+            <% end %>             
+
+    </div>

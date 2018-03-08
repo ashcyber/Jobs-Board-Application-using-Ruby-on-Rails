@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>Giri Consultancy | One of the leading People Consulting Firm Based in Mumbai</title>
+  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/custom.scss">
+</head>
+
+<body style="background-color: #fff">
+
+<body id="page-top">
+    
+    <div class="text-center" id="load_screen"><div  id="loading"></div></div>
+    <%= render 'layouts/header' %> 
+    <%= yield %> 
+    <%= render 'layouts/footer' %> 
+
+    
+    <!--Jquery-->
+    <script src="assets/jquery-1.11.3.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="assets/bootstrap.min.js"></script>
+    <!--Custom JavaScript-->
+    <script src="assets/script.js"></script>
+    
+    <%= debug(params) if Rails.env.development? %>
+
+</body>
+</html>
